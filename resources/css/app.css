@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#home-cover {
+    background-image: url('../../public/assets/img/home-bg.jpg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+#main-cover{
+    background-image: url('../../public/assets/img/hero_img.jpg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
