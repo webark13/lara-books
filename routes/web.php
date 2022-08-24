@@ -11,6 +11,8 @@ use App\Http\Controllers\BookIssueController;
 
 // Home Page with All Books
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
+
+// Search Book and Author
 Route::post('/search', [HomeController::class, 'search'])->name('home.search');
 
 Route::middleware('guest')->group(function () {
@@ -74,7 +76,6 @@ Route::middleware('admin')->group(function () {
     // Category Resources
     Route::resource('admin/categories', CategoryController::class);
 });
-
 
 Route::get('/dummy', function () {
     return view('dummy', [

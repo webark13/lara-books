@@ -28,7 +28,6 @@ class HomeController extends Controller
             ->orWhere('author', 'like', '%' . $term . '%')
             ->select('books.*', 'categories.name as category')->get();
 
-        // dd($books);
         return view('search', ['books' => $books]);
     }
 }

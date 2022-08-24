@@ -16,7 +16,7 @@ class BookController extends Controller
         $books = DB::table('books')
             ->join('categories', 'categories.id', '=', 'books.cat_id')
             ->select('books.*', 'categories.name as category')->get();
-            
+
         return view('books.index', ['books' => $books]);
     }
 
