@@ -16,6 +16,7 @@ class BookController extends Controller
         $books = DB::table('books')
             ->join('categories', 'categories.id', '=', 'books.cat_id')
             ->select('books.*', 'categories.name as category')->get();
+            
         return view('books.index', ['books' => $books]);
     }
 
@@ -42,9 +43,9 @@ class BookController extends Controller
         $book->author = $request->author;
         $book->publisher = $request->publisher;
         $book->cat_id = $request->category;
-        
+
         // Save Book image in Storage
-        if($request->hasFile('image')) {
+        if ($request->hasFile('image')) {
             $image_name = time() . '.' . $request->file('image')->extension();
             Storage::disk('public')->put(
                 $image_name,
@@ -62,7 +63,7 @@ class BookController extends Controller
     {
         $book = Book::find($id);
         $categories = Category::all();
-        return view('books.edit' , ['book' => $book, 'categories' => $categories]);
+        return view('books.edit', ['book' => $book, 'categories' => $categories]);
     }
 
     // Update Book
@@ -80,9 +81,9 @@ class BookController extends Controller
         $book->author = $request->author;
         $book->publisher = $request->publisher;
         $book->cat_id = $request->category;
-        
+
         // Save Book image in Storage
-        if($request->hasFile('image')) {
+        if ($request->hasFile('image')) {
             $image_name = time() . '.' . $request->file('image')->extension();
             Storage::disk('public')->put(
                 $image_name,
@@ -93,7 +94,6 @@ class BookController extends Controller
 
         $book->save();
         return redirect()->back()->with('message', 'Book Updated successfully');
-
     }
 
     // Delete Book
@@ -103,5 +103,4 @@ class BookController extends Controller
         $book->delete();
         return redirect()->back()->with('message', 'Book Deleted Successfully');
     }
-
 }

@@ -27,7 +27,7 @@
             </div>
         @else
             <div class="flex space-x-2">
-                <a href="{{ route('books.index') }}" class="btn">Dashboard</a>
+                <a href="{{ route('users.dashboard') }}" class="btn">Dashboard</a>
                 <form action="{{ route('users.logout', ['id' => Auth::user()->id]) }}" method="POST" class="">
                     @csrf
                     <input type="submit" class="btn btn-error " value="Logout">
@@ -39,7 +39,8 @@
             </div> --}}
         @endguest
     </header>
-
+    
+    @if(Auth::user() && Auth::user()->role == 'admin')
     <div class="flex">
         <nav class="m bg-gray-800 text-gray-100 md:w-2/12">
             <ul class="menu w-56 min-h-screen">
@@ -51,7 +52,7 @@
                         Requests</a></li>
             </ul>
         </nav>
-
+    @endif
         
         <div class="md:w-10/12 mx-auto ">
             @if (session('message'))

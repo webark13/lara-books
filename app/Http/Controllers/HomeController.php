@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -18,8 +19,16 @@ class HomeController extends Controller
         return view('index', ['books' => $books]);
     }
 
-    public function dump()
+    public function search(Request $request)
     {
-        return view('dump');
+        $term = $request->search;
+        $books = DB::table('books')
+            ->join('categories', 'categories.id', '=', 'books.id')
+            ->where('title', 'like', '%' . $term . '%')
+            ->orWhere('author', 'like', '%' . $term . '%')
+            ->select('books.*', 'categories.name as category')->get();
+
+        // dd($books);
+        return view('search', ['books' => $books]);
     }
 }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,9 +8,16 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
     {{-- Font Awsome Link --}}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+        integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    {{-- Swiper Css --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
+
     <title>Lara Books</title>
 </head>
+
 <body class="antialiased">
     <header class="bg-fuchsia-900 text-white flex justify-between items-center px-6 py-2 ">
         <div><a href="{{ route('home.index') }}" class="text-2xl font-bold">Home</a></div>
@@ -34,6 +42,7 @@
         </div> --}}
     </header>
 
+    
     @if (session('message'))
         <div class="h-20 relative">
             <p class="absolute top-0 left-0 w-full bg-green-400 p-2 text-center">{{ session('message') }}</p>
@@ -43,10 +52,35 @@
             <p class="absolute top-0 left-0 w-full bg-red-400 p-2 text-center">{{ session('error') }}</p>
         </div>
     @endif
-    
-<div class="">
-    @yield('content')
-</div>
-    
+
+    <div class="">
+        @yield('content')
+    </div>
+
+    {{-- Swiper Js --}}
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+            slidesPerView: 4,
+            spaceBetween: 30,
+            slidesPerGroup: 4,
+            loop: true,
+            loopFillGroupWithBlank: true,
+            centeredSlides: false,
+            autoplay: {
+                delay: 2500,
+                disableOnInteraction: false
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true
+            },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev"
+            }
+        });
+    </script>
 </body>
+
 </html>

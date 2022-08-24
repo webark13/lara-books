@@ -30,11 +30,11 @@ class UserController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' =>Hash::make($request->password),
+            'password' => Hash::make($request->password),
         ]);
 
         return redirect()->route('users.login')->with('message', 'You have been successfully registered!');
-    }    
+    }
 
     // Show Login Page
     public function login()
@@ -50,9 +50,9 @@ class UserController extends Controller
             'password' => 'required'
         ]);
 
-        if(Auth::attempt($credentials)) {
+        if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            if(Auth::user()->role == 'admin') {
+            if (Auth::user()->role == 'admin') {
                 return redirect()->route('books.index')->with('message', 'you have successfully logged in');
             }
 
@@ -72,19 +72,19 @@ class UserController extends Controller
 
     public function dashboard()
     {
-        // $books = DB::table('books')
-        //         ->join('book_issues', 'books.id', '=', 'book_issues.book_id')
-        //         ->where('user_id', Auth::id())->get();
-        
+        if (Auth::user()->role == 'admin') {
+            $books = DB::table('books')
+                ->join('categories', 'categories.id', '=', 'books.cat_id')
+                ->select('books.*', 'categories.name as category')->get();
+
+            return view('books.index', ['books' => $books]);
+        }
+
         $books = DB::table('books')
-                ->join('book_issues', 'book_issues.book_id', '=', 'books.id')
-                ->where('issue', '=', true)
-                ->where('user_id', '=', Auth::user()->id)->get();
+            ->join('book_issues', 'book_issues.book_id', '=', 'books.id')
+            ->where('issue', '=', true)
+            ->where('user_id', '=', Auth::user()->id)->get();
 
-                // dd($books);
-        return view('dashboard', ['books' => $books]); 
+        return view('dashboard', ['books' => $books]);
     }
-
-    
-
 }

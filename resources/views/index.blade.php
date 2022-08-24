@@ -1,5 +1,25 @@
 @extends('layouts.base')
 @section('content')
+    <section id="home-cover" class="bg-gray-100">
+        <div class="min-h-screen bg-black bg-opacity-50 flex justify-center items-center">
+            <form action="{{ route('home.search') }}" method="POST" class="w-full max-w-2xl mx-auto p-4">
+                @csrf
+                <div class="form-control">
+                    <div class="input-group">
+                        <input type="text" name="search" placeholder="Search Books or Authors..."
+                            class="input-md focus:outline-none text-lg w-10/12 md:w-11/12" />
+                        <button class="btn btn-square w-2/12 md:w-1/12">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
     {{-- Show All Books --}}
     <div class="container mx-auto mt-10">
         @guest
